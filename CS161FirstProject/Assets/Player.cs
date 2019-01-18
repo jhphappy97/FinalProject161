@@ -48,12 +48,5 @@ public class Player : MonoBehaviour
             } 
         }
     }
-//to avoid gettign stuck on wall make a new physics material and make no friction
-    //instatiate is what you use to spawn things
-    /*if(other.collider.CompareTag("tag"))
-     * {
-     *      Instantiate(coinPrefab, where to spawn, Quaternion.identity);
-     * }
-     * tinyurl.com/161Day4LN
 
 }
