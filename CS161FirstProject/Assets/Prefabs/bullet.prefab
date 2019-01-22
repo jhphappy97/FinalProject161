@@ -132,3 +132,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8604751868789261311}
+  alive: 1

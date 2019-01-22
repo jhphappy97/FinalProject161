@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public Rigidbody2D enemy;
+    private Rigidbody2D enemyClone;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float maxTime = 30f;
     [SerializeField] private float minTime = 20f;
@@ -32,8 +33,9 @@ public class EnemySpawner : MonoBehaviour
     {
         currentTime = minTime;
         Vector3 position = new Vector3(10, Random.Range(-3.5f, 2.0f), 0);
-        Rigidbody2D enemyClone = (Rigidbody2D)Instantiate(enemy, position, Quaternion.identity);
+        enemyClone = (Rigidbody2D)Instantiate(enemy, position, Quaternion.identity);
         enemyClone.velocity = new Vector2(-speed,0);
+        Destroy(enemyClone.gameObject, 10f);
     }
 
     void setSpawnTime()

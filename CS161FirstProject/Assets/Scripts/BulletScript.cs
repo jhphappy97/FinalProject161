@@ -23,6 +23,7 @@ public class BulletScript : MonoBehaviour
         {
             print("Enemy");  
             Destroy(collider.gameObject);
+            Destroy(bullet.gameObject);
         }
     }
 }
