@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public int width,height;
     public GameObject enemy1;
-    public float speed = 2;
+   
     private Rigidbody2D m_rigidbody;
     private bool enemy_wallcollide = false;
 
@@ -32,34 +32,7 @@ public class EnemySpawner : MonoBehaviour
         }
 }
 
-    void go_right()
-    {
-        this.transform.Translate(Vector3.right * speed * Time.deltaTime);
-    }
-    void go_left()
-    {
-        this.transform.Translate(Vector3.left * speed * Time.deltaTime);
-    }
-    void Update()
-    {
-        if(enemy_wallcollide)
-        {
-            go_right();
-        }
-        else
-        {
-            go_left();
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if(other.collider.CompareTag("Player"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        if(other.collider.CompareTag("Wall"))
-        {
-            enemy_wallcollide = !enemy_wallcollide;
-        }
-    }
+   
+   
+    
 }
