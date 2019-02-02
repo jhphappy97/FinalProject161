@@ -18,18 +18,18 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // Update is called once per frame
-    
+
     void spawnObjects()
 {
     for(int x=0;x<width;x++)
     {
         for(int y=0;y<height;y++)
         {
-                Vector3 Spawnposition = new Vector3(x+1, y+1, 0);
+                Vector3 Spawnposition = new Vector3(x, y, 0);
                 GameObject newEnemy = Instantiate(enemy1, this.transform);
-                newEnemy.transform.localPosition = Spawnposition;
-        }   
-    }
+                newEnemy.transform.localPosition = Spawnposition+ new Vector3(1,1,0);
+            }
+        }
 }
 
     void go_right()
