@@ -141,4 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09259788ea0d5ac498e06c0e0cf0725d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  enemy_wallcollide: 0
+  speed: 0.5
+  left: 1
