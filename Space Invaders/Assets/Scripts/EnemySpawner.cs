@@ -15,8 +15,8 @@ public class EnemySpawner : MonoBehaviour
     private Rigidbody2D m_rigidbody;
     public GameObject Enemy_script;
     public GameObject[,] enemies;
-    [SerializeField] private float maxTime = 30f;
-    [SerializeField] private float minTime = 20f;
+    [SerializeField] private float maxTime = 3f;
+    [SerializeField] private float minTime = 1f;
     private float currentTime;
     private float fireTime;
 
@@ -140,6 +140,7 @@ public class EnemySpawner : MonoBehaviour
             else
                 break;
         }
+        currentTime = minTime;
         enemies[col, row].GetComponent<enenmy>().fireBullet();
     }
 
