@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -13,12 +15,18 @@ public class EnemySpawner : MonoBehaviour
     private Rigidbody2D m_rigidbody;
     public GameObject Enemy_script;
     public GameObject[,] enemies;
+    [SerializeField] private float maxTime = 30f;
+    [SerializeField] private float minTime = 20f;
+    private float currentTime;
+    private float fireTime;
 
     // Start is called before the first frame update
     void Start()
     {
         enemies = new GameObject[width, height];
         spawnObjects();
+        setFireTime();
+        currentTime = minTime;
     }
 
     // Update is called once per frame
@@ -37,8 +45,16 @@ public class EnemySpawner : MonoBehaviour
         }
     }
    
-    void Update()
+    void FixedUpdate()
     {
+        if (!enemiesLeft())
+            levelFinished();//not implemented yet
+        currentTime += Time.deltaTime;
+        if (currentTime >= fireTime)
+        {
+            shoot();
+            setFireTime();
+        }
         bool found = false;
         for (int x = 0; x < width; x++)
         {
@@ -55,14 +71,18 @@ public class EnemySpawner : MonoBehaviour
                             hitLeftWall();
                         else//then hit right wall
                             hitRightWall();
-                        break;    
+                        break;
                     }
                 }
                 if (found)
                     break;
             }
-
         }
+    }
+
+    private void levelFinished()
+    {
+        throw new NotImplementedException();
     }
 
     void hitRightWall()
@@ -99,5 +119,45 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    void shoot()
+    {
+        int col = Random.Range(0, width);
+        int row = -1;
+        while (true)//gauranteed to have at least one alive
+        { 
+            for(int y = 0; y < height; ++y)
+            { 
+                if(enemies[col, y] != null)
+                {
+                    row = y;
+                    break;
+                }
+            }
+            if (row == -1)//if no enemy found in that row
+                col = Random.Range(0, width);//then pick new col
+            else
+                break;
+        }
+        enemies[col, row].GetComponent<enenmy>().fireBullet();
+    }
+
+    void setFireTime()
+    {
+        fireTime = Random.Range(minTime, maxTime);
+    }
+
+    bool enemiesLeft()
+    {
+        for (int x = 0; x < width; ++x)
+        { 
+            for(int y = 0; y < height; ++y)
+            {
+                if (enemies[x, y] != null)
+                    return true;
+            }
+        }
+        return false;
     }
 }

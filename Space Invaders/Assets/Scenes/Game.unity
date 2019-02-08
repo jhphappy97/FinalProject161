@@ -143,9 +143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 7282253654123780970, guid: 7a59fe4fed23f43c9b530164dcb9ee3c, type: 3}
   speed: 10
-  bulletLimit: 3
-  timeBetweenShotLimit: 3
   player: {fileID: 2017439117}
+  bulletClone: {fileID: 0}
 --- !u!4 &153639989
 Transform:
   m_ObjectHideFlags: 0
@@ -385,7 +384,10 @@ MonoBehaviour:
   height: 5
   enemy1: {fileID: 1313768445006224485, guid: 97e921e03f5224b03810ae18a4236a3f, type: 3}
   speed: 1
-  Enemy_script: {fileID: 0}
+  Enemy_script: {fileID: 1313768445006224485, guid: 97e921e03f5224b03810ae18a4236a3f,
+    type: 3}
+  maxTime: 30
+  minTime: 20
 --- !u!4 &447696319
 Transform:
   m_ObjectHideFlags: 0
@@ -492,7 +494,12 @@ PrefabInstance:
     - target: {fileID: 8093490862636994575, guid: bb98f05c59b7a0a479703c942f3d8fb5,
         type: 3}
       propertyPath: m_Name
-      value: Red_laser
+      value: LeftWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093490862636994575, guid: bb98f05c59b7a0a479703c942f3d8fb5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 3460669271813381170, guid: bb98f05c59b7a0a479703c942f3d8fb5,
         type: 3}
@@ -637,7 +644,12 @@ PrefabInstance:
     - target: {fileID: 8093490862636994575, guid: bb98f05c59b7a0a479703c942f3d8fb5,
         type: 3}
       propertyPath: m_Name
-      value: Red_laser (1)
+      value: RightWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093490862636994575, guid: bb98f05c59b7a0a479703c942f3d8fb5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 3460669271813381170, guid: bb98f05c59b7a0a479703c942f3d8fb5,
         type: 3}
@@ -853,7 +865,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 2
+  m_Constraints: 6
 --- !u!212 &2017439121
 SpriteRenderer:
   m_ObjectHideFlags: 0

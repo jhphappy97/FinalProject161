@@ -43,4 +43,5 @@ public class Player : MonoBehaviour
             movementModifier = 0;
         player.velocity = new Vector2(movementModifier * speed, currentVelocity.y);
     }
+
 }
