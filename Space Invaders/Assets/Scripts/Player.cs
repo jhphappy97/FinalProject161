@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Player : MonoBehaviour
 {
@@ -53,6 +55,10 @@ public class Player : MonoBehaviour
             life2.enabled = false;
         if (health == 0)
             life3.enabled = false;
+        if(health==-1)
+            SceneManager.LoadScene("GameOver");
+        
+
     }
 
     public void playFireAudio(){ audio.Play(); }

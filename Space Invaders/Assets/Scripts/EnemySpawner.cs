@@ -9,9 +9,11 @@ public class EnemySpawner : MonoBehaviour
 {
     private const float V = 0.3f;
     public int width,height;
-    public GameObject enemy1;
+    public GameObject enemy10;
+    public GameObject enemy20;
+    public GameObject enemy40;
+
     public float speed = 2;
-    private enenmy enenmy_access;
     private Rigidbody2D m_rigidbody;
     public GameObject Enemy_script;
     public GameObject[,] enemies;
@@ -19,7 +21,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float minTime = 1f;
     private float currentTime;
     private float fireTime;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +38,25 @@ public class EnemySpawner : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                Vector3 Spawnposition = new Vector3(x + V * x, y, 0);
-                enemies[x,y]= Instantiate(enemy1, this.transform);
-                enemies[x,y].transform.localPosition = Spawnposition;
+                if (y < 2)
+                {
+                    Vector3 Spawnposition = new Vector3(x + V * x, y, 0);
+                    enemies[x, y] = Instantiate(enemy10, this.transform);
+                    enemies[x, y].transform.localPosition = Spawnposition;
+                }
+                else if (y < 4)
+                {
+                    Vector3 Spawnposition = new Vector3(x + V * x, y, 0);
+                    enemies[x, y] = Instantiate(enemy20, this.transform);
+                    enemies[x, y].transform.localPosition = Spawnposition;
+                }
+                else if (y < width)
+                {
+                    Vector3 Spawnposition = new Vector3(x + V * x, y, 0);
+                    enemies[x, y] = Instantiate(enemy40, this.transform);
+                    enemies[x, y].transform.localPosition = Spawnposition;
+                }
+
             }
 
         }

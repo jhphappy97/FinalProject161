@@ -44,7 +44,11 @@ public class enenmy : MonoBehaviour
     {
         this.transform.Translate(0.0f, -1.0f, 0.0f);
         if (this.transform.position.y < -3.9)
+        {
             print("GameOver");
+            SceneManager.LoadScene("Game");
+
+        }
     }
 
     public void fireBullet()
@@ -62,7 +66,7 @@ public class enenmy : MonoBehaviour
         if (other.collider.CompareTag("Player"))
         {
             print("GameOver");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("Game");
         }
 
     }

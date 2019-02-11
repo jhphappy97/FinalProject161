@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         bullet = GetComponent<Rigidbody2D>();
-        Destroy(bullet.gameObject, 1f);
+        Destroy(bullet.gameObject, 2f);
         playerScriptAccess = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
@@ -23,10 +23,16 @@ public class Bullet : MonoBehaviour
     {
         if (collider.CompareTag("Enemy"))
         {
-            print("Enemy");
             Destroy(collider.gameObject);
             Destroy(bullet.gameObject);
-            playerScriptAccess.updateScore(1);
+            string enemyName = collider.gameObject.name;
+            Debug.Log(enemyName);
+            if(enemyName=="Enemy(Clone)")
+                playerScriptAccess.updateScore(10);
+            else if (enemyName == "GreenEnemy(Clone)")
+                playerScriptAccess.updateScore(20);
+            if (enemyName == "redEnemy(Clone)")
+                playerScriptAccess.updateScore(40);
         }
     }
 }
