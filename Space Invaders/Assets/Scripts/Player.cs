@@ -36,9 +36,9 @@ public class Player : MonoBehaviour
         float horizontal_translation = player.velocity.x;//Input.GetAxis("Horizontal") * speed;
         if (System.Math.Abs(Input.GetAxis("Horizontal")) > 0)
             horizontal_translation = Input.GetAxis("Horizontal") * speed;
-        if (player.position.x >= 8.25 && horizontal_translation > 0)
+        if (player.position.x >= 13.85 && horizontal_translation > 0)
             horizontal_translation = 0;
-        if (player.position.x <= -8.25 && horizontal_translation < 0)
+        if (player.position.x <= -14.25 && horizontal_translation < 0)
             horizontal_translation = 0;
         player.velocity = new Vector2(horizontal_translation, player.velocity.y);
     }
