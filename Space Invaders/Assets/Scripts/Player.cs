@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] private RawImage life1;
     [SerializeField] private RawImage life2;
     [SerializeField] private RawImage life3;
-    [SerializeField] private AudioSource audio;
+    [SerializeField] private new  AudioSource audio;
     //public GameObject scoreGameObject;
     //public GameObject healthGameObject;
 
@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         player = GetComponent<Rigidbody2D>();
+        health = 3;
         updateScore(0);
     }
 
@@ -36,11 +37,13 @@ public class Player : MonoBehaviour
         float horizontal_translation = player.velocity.x;//Input.GetAxis("Horizontal") * speed;
         if (System.Math.Abs(Input.GetAxis("Horizontal")) > 0)
             horizontal_translation = Input.GetAxis("Horizontal") * speed;
-        if (player.position.x >= 13.85 && horizontal_translation > 0)
+        if (player.position.x >= 11.80f && horizontal_translation > 0)
             horizontal_translation = 0;
-        if (player.position.x <= -14.25 && horizontal_translation < 0)
+        if (player.position.x <= -11.80f && horizontal_translation < 0)
+        if (player.position.x <= -11.80f && horizontal_translation < 0)
             horizontal_translation = 0;
         player.velocity = new Vector2(horizontal_translation, player.velocity.y);
+        print(health);
     }
 
 
@@ -54,12 +57,14 @@ public class Player : MonoBehaviour
         if (health == 1)
             life2.enabled = false;
         if (health == 0)
+        {
             life3.enabled = false;
-        if(health==-1)
-            SceneManager.LoadScene("GameOver");
-        
-
+        }
     }
+
+    public int getHealth() { return health; }
+
+    public void killPlayer() { health = 0; }
 
     public void playFireAudio(){ audio.Play(); }
 

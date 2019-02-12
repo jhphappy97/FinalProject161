@@ -7,7 +7,7 @@ public class enenmy : MonoBehaviour
 {
     public bool enemy_wallcollide = false;
     public GameObject enemyBullet;
-    public float speed = 1f;
+    private float speed = 1f;
     public bool left = true;
     GameObject bulletClone;
     bool canFire = false;
@@ -43,11 +43,11 @@ public class enenmy : MonoBehaviour
     public void moveDown()
     {
         this.transform.Translate(0.0f, -1.0f, 0.0f);
+        speed *= 1.25f;
         if (this.transform.position.y < -3.9)
         {
             print("GameOver");
-            SceneManager.LoadScene("Game");
-
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().killPlayer();
         }
     }
 
@@ -66,7 +66,7 @@ public class enenmy : MonoBehaviour
         if (other.collider.CompareTag("Player"))
         {
             print("GameOver");
-            SceneManager.LoadScene("Game");
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().killPlayer();
         }
 
     }

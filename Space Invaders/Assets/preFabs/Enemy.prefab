@@ -145,7 +145,7 @@ MonoBehaviour:
   enemy_wallcollide: 0
   enemyBullet: {fileID: 4473730612610514347, guid: 6b0d1ded719474aee85b196cee955b98,
     type: 3}
-  speed: 0.5
+  speed: 2
   left: 1
   fire: {fileID: 8223911453430114819}
 --- !u!82 &8223911453430114819
