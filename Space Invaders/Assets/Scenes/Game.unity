@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 7282253654123780970, guid: 7a59fe4fed23f43c9b530164dcb9ee3c, type: 3}
-  speed: 10
+  speed: 15
   player: {fileID: 2017439117}
 --- !u!4 &153639989
 Transform:

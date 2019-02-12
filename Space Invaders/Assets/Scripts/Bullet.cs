@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         bullet = GetComponent<Rigidbody2D>();
-        Destroy(bullet.gameObject, 2f);
+        Destroy(bullet.gameObject, 1f);
         playerScriptAccess = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 

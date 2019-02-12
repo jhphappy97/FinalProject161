@@ -28,7 +28,7 @@ public class InGameUI : MonoBehaviour
                 Pause();
             }
         }
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getHealth() < 0)
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getHealth() < 1)
         {
             displayGameOver();
         }

@@ -99,7 +99,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void levelFinished()
     {
-        throw new NotImplementedException();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().killPlayer();
     }
 
     void hitRightWall()
