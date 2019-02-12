@@ -43,7 +43,7 @@ public class enenmy : MonoBehaviour
     public void moveDown()
     {
         this.transform.Translate(0.0f, -1.0f, 0.0f);
-        speed *= 1.25f;
+        speed *= 1.15f;
         if (this.transform.position.y < -9)
         {
             print("GameOver");

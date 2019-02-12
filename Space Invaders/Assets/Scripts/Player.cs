@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     //[SerializeField]private Rigidbody2D bullet;
     [SerializeField]private Text score_text;
     //[]private Text health_text;
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 7f;
     [SerializeField] private int health = 3;
     [SerializeField] private int score = 0;
     //[SerializeField] private int invincibleDelay = 3;
@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
         if (player.position.x <= -11.80f && horizontal_translation < 0)
             horizontal_translation = 0;
         player.velocity = new Vector2(horizontal_translation, player.velocity.y);
-        print(health);
     }
 
 
@@ -70,16 +69,7 @@ public class Player : MonoBehaviour
 
     
 
-    //void Move()
-    //{
-    //    float movementModifier = Input.GetAxis("Horizontal");
-    //    Vector2 currentVelocity = player.velocity;
-    //    if (player.position.x >= 8.25 && movementModifier > 0)
-    //        movementModifier = 0;
-    //    if (player.position.x <= -8.25 && movementModifier < 0)
-    //        movementModifier = 0;
-    //    player.velocity = new Vector2(movementModifier * speed, currentVelocity.y);
-    //}
+ 
 
 
 }

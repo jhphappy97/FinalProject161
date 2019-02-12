@@ -26,7 +26,6 @@ public class EnemyBullet : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            print("Player");
             Destroy(this.gameObject);
             playerScriptAccess.decHealth();
         }

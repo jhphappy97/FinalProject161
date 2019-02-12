@@ -5,52 +5,61 @@ using UnityEngine.UI;
 public class InGameUI : MonoBehaviour
 {
     public GameObject pauseUI;
-    bool isPaused = false;
+    public static bool isPaused = false;
     public Button restartButton;
     public Button resumeButton;
 
-    void Awake()
-    {
-        pauseUI.SetActive(false);
-        Time.timeScale = 1;
-    }
+   // void Awake()
+   // {
+  //      pauseUI.SetActive(false);
+   //     Time.timeScale = 1;
+ //   }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            TogglePause();
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getHealth() < 1)
+        {if(isPaused)
+
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getHealth() < 0)
+        {
             displayGameOver();
+        }
     }
 
-    public void TogglePause()
+    public void Resume()
     {
-        print("Pause!");
-        isPaused = !isPaused;
-
-        if (isPaused)
-        {
-            Time.timeScale = 0;
-            pauseUI.SetActive(true);
-            restartButton.gameObject.SetActive(false);
-        }
-        else
-        {
-            Time.timeScale = 1;
-            pauseUI.SetActive(false);
-        }
+        pauseUI.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
     }
+    void Pause()
+    {
+        pauseUI.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+    
+  
     public void quit()
     {
+        Debug.Log("quit");
         Application.Quit();
     }
 
     public void displayGameOver()
     {
-        Time.timeScale = 0;
-        pauseUI.SetActive(true);
-        restartButton.gameObject.SetActive(true);
-        resumeButton.gameObject.SetActive(false);
+        SceneManager.LoadScene("GameOver");
     }
-    public void restartLevel() { SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
+    public void restartLevel() {
+        Time.timeScale = 1f;
+        isPaused = false;
+        SceneManager.LoadScene("Game"); }
 }
