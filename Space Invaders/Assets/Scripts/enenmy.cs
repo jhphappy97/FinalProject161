@@ -44,7 +44,7 @@ public class enenmy : MonoBehaviour
     {
         this.transform.Translate(0.0f, -1.0f, 0.0f);
         speed *= 1.25f;
-        if (this.transform.position.y < -3.9)
+        if (this.transform.position.y < -9)
         {
             print("GameOver");
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().killPlayer();
