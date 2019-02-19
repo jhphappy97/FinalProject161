@@ -5,24 +5,29 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     private float speed = 5f;
+    private Player playerScriptAccess;
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(this.gameObject, 1f);
+        Destroy(this.gameObject, 3f);
+        playerScriptAccess = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        print("move Bullet");
-        this.transform.Translate(new Vector3(this.transform.position.x, this.transform.position.y + speed * Time.deltaTime));
+        //print("move Bullet");
+        //Debug.Log(this.transform.position.y);
+        //Debug.Log(speed * Time.deltaTime);
+        this.transform.Translate(Vector3.left * speed * Time.deltaTime);
+        //Debug.Log(this.transform.position.y);
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))
         {
-            print("Player");
             Destroy(this.gameObject);
+            playerScriptAccess.decHealth();
         }
     }
 }

@@ -7,9 +7,11 @@ public class enenmy : MonoBehaviour
 {
     public bool enemy_wallcollide = false;
     public GameObject enemyBullet;
-    public float speed = 2;
+    private float speed = 1f;
     public bool left = true;
     GameObject bulletClone;
+    bool canFire = false;
+    public AudioSource fire;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +19,10 @@ public class enenmy : MonoBehaviour
         bulletClone = null;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        if (bulletClone == null)
+            canFire = true;
         if (left)
             this.transform.Translate(Vector3.left * speed * Time.deltaTime);
         else
@@ -39,18 +43,30 @@ public class enenmy : MonoBehaviour
     public void moveDown()
     {
         this.transform.Translate(0.0f, -1.0f, 0.0f);
+        speed *= 1.15f;
+        if (this.transform.position.y < -9)
+        {
+            print("GameOver");
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().killPlayer();
+        }
     }
 
     public void fireBullet()
     {
-        bulletClone = Instantiate(enemyBullet, new Vector3(this.transform.position.x, this.transform.position.y - 0.8f), Quaternion.Euler(0, 0, 90f));
+        //print("fireBullet: ENEMY");
+        if (canFire)
+        {
+            bulletClone = Instantiate(enemyBullet, new Vector3(this.transform.position.x, this.transform.position.y - 0.8f), Quaternion.Euler(0, 0, 90f));
+            fire.Play();
+        }
     }
 
     private void OnTriggerEnter2D(Collision2D other)
     {
         if (other.collider.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            print("GameOver");
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().killPlayer();
         }
 
     }
