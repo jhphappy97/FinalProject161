@@ -8,12 +8,14 @@ public class Player : MonoBehaviour
     private Rigidbody2D m_rigidbody;
     private Collider2D m_collider;
     private bool isGrounded = false;
+    private Animator anim;
     [SerializeField] protected float speed = 5;
     [SerializeField] protected float jumpforce = 7.5f;
     // Start is called before the first frame update
     private void Awake()
     {
         m_spriteRenderer = this.GetComponent<SpriteRenderer>();
+        anim = this.GetComponent<Animator>();
     }
     void Start()
     {
@@ -34,19 +36,25 @@ public class Player : MonoBehaviour
     void Jump()
     {
         isGrounded =  false;
+        anim.SetBool("jump",true);
         m_rigidbody.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
     }
 
     void Move()
     {
         float movemnetModifier = Input.GetAxis("Horizontal");
+        if(movemnetModifier == 0){
+            anim.SetBool("walk",false);
+        }
         if(movemnetModifier > 0)
         {
             m_spriteRenderer.flipX = false;
+            anim.SetBool("walk",true);
         }
         else if(movemnetModifier < 0)
         {
             m_spriteRenderer.flipX = true;
+            anim.SetBool("walk",true);
         }
         Vector2 currentVelocity = m_rigidbody.velocity;
         m_rigidbody.velocity = new Vector2(movemnetModifier * speed, currentVelocity.y);
@@ -61,6 +69,7 @@ public class Player : MonoBehaviour
             if(hitInfo && hitInfo.collider.CompareTag("ground"))
             {
                 isGrounded = true;
+                anim.SetBool("jump",false);
             }
         }
     }

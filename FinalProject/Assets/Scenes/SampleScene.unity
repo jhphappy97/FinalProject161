@@ -425,6 +425,7 @@ GameObject:
   - component: {fileID: 754474230}
   - component: {fileID: 754474229}
   - component: {fileID: 754474228}
+  - component: {fileID: 754474231}
   m_Layer: 0
   m_Name: SnowBallFightArt_0
   m_TagString: Untagged
@@ -555,6 +556,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8333333, y: 1.25}
   m_EdgeRadius: 0
+--- !u!95 &754474231
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754474225}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df44a23d0b32e42e6841e62bc1893686, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &930525533
 GameObject:
   m_ObjectHideFlags: 0
@@ -5479,7 +5499,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.30449292}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5490,7 +5510,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3333334, y: 1.4166666}
+  m_Size: {x: 1.3333334, y: 0.80768067}
   m_EdgeRadius: 0
 --- !u!1001 &1946242846
 PrefabInstance:
