@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private bool shootstatus = false;
     public GameObject bullet;
     [SerializeField] protected float bulletspeed = 0.1f;
+    public float playerforce = 500f;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
-        if (Input.GetKeyDown(KeyCode.Space)&& isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space)&&  isGrounded)
         {
             Jump();
         }
@@ -51,8 +52,11 @@ public class Player : MonoBehaviour
     void shoot()
     {
         Debug.Log("shoot");
-        GameObject b = Instantiate(bullet, this.transform.position, Quaternion.identity);
-        b.GetComponent<Rigidbody2D>().AddForce()
+        GameObject b = Instantiate(bullet, fp.GetComponent<Transform>().position, Quaternion.identity);
+        Rigidbody2D bulletbody = b.GetComponent<Rigidbody2D>();
+        Vector3 dir = new Vector3(1,1);
+        bulletbody.AddForce(dir * playerforce);
+
         }
     void Jump()
     {
