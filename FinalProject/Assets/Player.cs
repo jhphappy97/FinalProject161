@@ -45,9 +45,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             shoot();
-            anim.SetBool("attack",true);
         }
-        else{anim.SetBool("attack",false);}
 
 
     }
@@ -58,7 +56,6 @@ public class Player : MonoBehaviour
         Rigidbody2D bulletbody = b.GetComponent<Rigidbody2D>();
         Vector3 dir = new Vector3(1,1);
         bulletbody.AddForce(dir * playerforce);
-        
 
         }
     void Jump()
