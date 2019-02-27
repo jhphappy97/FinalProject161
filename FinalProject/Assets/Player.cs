@@ -53,9 +53,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.K))
         {
             shoot();
+            anim.SetBool("shoot",true);
             angle_var = 1;
         }
-
+        else{anim.SetBool("shoot",false);}
     }
     void shoot()
     {
