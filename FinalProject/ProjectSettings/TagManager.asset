@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - Snowpile
+  - monster
   layers:
   - Default
   - TransparentFX

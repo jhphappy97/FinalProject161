@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     private bool shootstatus = false;
     public GameObject bullet;
     [SerializeField] protected float bulletspeed = 0.1f;
-    public float playerforce = 500f;
+    [SerializeField] protected float playerforce = 500f;
+    [SerializeField] protected float angle_var = 1;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -42,11 +43,18 @@ public class Player : MonoBehaviour
         {
             getbullet();
         }
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKey(KeyCode.K))
+        {
+            angle_var = angle_var + Time.deltaTime;
+            Debug.Log(angle_var);
+
+            
+        }
+        if (Input.GetKeyUp(KeyCode.K))
         {
             shoot();
+            angle_var = 1;
         }
-
 
     }
     void shoot()
@@ -54,7 +62,7 @@ public class Player : MonoBehaviour
         Debug.Log("shoot");
         GameObject b = Instantiate(bullet, fp.GetComponent<Transform>().position, Quaternion.identity);
         Rigidbody2D bulletbody = b.GetComponent<Rigidbody2D>();
-        Vector3 dir = new Vector3(1,1);
+        Vector3 dir = new Vector3(1,1*angle_var);
         bulletbody.AddForce(dir * playerforce);
 
         }
