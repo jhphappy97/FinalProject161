@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Collider2D m_collider;
     private bool isGrounded = false;
     private Animator anim;
+    private Transform dialog;
     [SerializeField] protected float speed = 5;
     [SerializeField] protected float jumpforce = 7.5f;
     private bool hitsnowile = false;
@@ -19,6 +20,8 @@ public class Player : MonoBehaviour
     [SerializeField] protected float bulletspeed = 0.1f;
     [SerializeField] protected float playerforce = 500f;
     [SerializeField] protected float angle_var = 1;
+    
+    public gather_snow snowUI;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -27,6 +30,7 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
+        dialog = this.gameObject.transform.GetChild(1);
         m_rigidbody = this.GetComponent<Rigidbody2D>();
         m_collider = this.GetComponent<Collider2D>();
     }
@@ -42,21 +46,37 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && hitsnowile == true)
         {
             getbullet();
+           
         }
-        if (Input.GetKey(KeyCode.K))
-        {
-            angle_var = angle_var + Time.deltaTime;
-            Debug.Log(angle_var);
+         if(snowUI.current_snow<0 && Input.GetKey(KeyCode.K)){
+           dialog.gameObject.SetActive(true);
+           }
+        if(snowUI.current_snow>=0){
+            dialog.gameObject.SetActive(false);
+            if (Input.GetKey(KeyCode.K))
+            {
+                angle_var = angle_var + Time.deltaTime;
+                Debug.Log(angle_var);
 
+
+            }
+            if (Input.GetKeyUp(KeyCode.K))
+            {
+                shoot();
+                
+                snowUI.Total_snow_can_store[snowUI.current_snow].SetActive(false);
+                snowUI.current_snow-=1;
+                snowUI.current_snow = Mathf.Max(snowUI.current_snow,-1);
+                
+                anim.SetBool("shoot",true);
+                angle_var = 1;
+                Invoke("disable_anim",0.2f);
+            }
             
         }
-        if (Input.GetKeyUp(KeyCode.K))
-        {
-            shoot();
-            anim.SetBool("shoot",true);
-            angle_var = 1;
-        }
-        else{anim.SetBool("shoot",false);}
+    }
+    void disable_anim(){
+        anim.SetBool("shoot",false);
     }
     void shoot()
     {
