@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.K))
             {
                 angle_var = angle_var + Time.deltaTime;
-                Debug.Log(angle_var);
+                //Debug.Log(angle_var);
 
 
             }
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
     }
     void shoot()
     {
-        Debug.Log("shoot");
+        //Debug.Log("shoot");
         GameObject b = Instantiate(bullet, fp.GetComponent<Transform>().position, Quaternion.identity);
         Rigidbody2D bulletbody = b.GetComponent<Rigidbody2D>();
         Vector3 dir = new Vector3(1,1*angle_var);

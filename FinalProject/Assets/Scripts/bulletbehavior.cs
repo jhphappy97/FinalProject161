@@ -15,22 +15,45 @@ public class bulletbehavior : MonoBehaviour
     {
 
     }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
+    //private void OnTriggerExit(Collider collision)
+    //{
 
-        if (collision.collider.CompareTag("monster"))
-        {
-            print(collision.collider.tag);
-            Debug.Log("destroy");
-            Destroy(this.gameObject);
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
+      //  if (collision.CompareTag("monster"))
+        //{
+          //  print(collision.tag);
+            //Debug.Log("destroy");
+            //Destroy(this.gameObject);
+        //}
+    //}
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.collider.CompareTag("ground"))
+        if (other.CompareTag("ground"))
         {
             Debug.Log("destroyG");
             Destroy(this.gameObject);
         }
+        if (other.CompareTag("monster"))
+        {
+            print(other.tag);
+            Debug.Log("destroy");
+            Destroy(this.gameObject);
+        }
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    print("collision");
+    //    if (collision.collider.CompareTag("ground"))
+    //    {
+    //        Debug.Log("destroyG");
+    //        Destroy(this.gameObject);
+    //    }
+    //    if (collision.collider.CompareTag("monster"))
+    //    {
+
+    //        Debug.Log("destroy");
+    //        Destroy(this.gameObject);
+    //    }
+
+    //}
 }
