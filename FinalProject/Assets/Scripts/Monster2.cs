@@ -13,6 +13,8 @@ public class Monster2 : MonoBehaviour
     private float timerForFire, timerForHit;
     private bool right = false;
     private bool canFire = true;
+    
+    public float back=5;
     // Start is called before the first frame update
     void Start()
     {
@@ -99,6 +101,10 @@ public class Monster2 : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             gotHit = true;
+        }
+        if (collision.collider.CompareTag("bullet"))
+        {
+            enemy.velocity = new Vector2(-enemy.velocity.x, enemy.velocity.y);
         }
     }
 }
