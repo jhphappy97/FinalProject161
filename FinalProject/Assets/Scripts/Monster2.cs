@@ -102,9 +102,14 @@ public class Monster2 : MonoBehaviour
         {
             gotHit = true;
         }
-        if (collision.collider.CompareTag("bullet"))
-        {
-            enemy.velocity = new Vector2(-enemy.velocity.x, enemy.velocity.y);
-        }
+//        if (collision.collider.CompareTag("bullet"))
+//        {
+//            enemy.AddForce(new Vector2(12f,-2.729f),ForceMode2D.Force);
+//            //enemy.velocity = new Vector2(-enemy.velocity.x-10, enemy.velocity.y);
+//        }
+    }
+    void OnTriggerEnter2D(Collider2D other){
+        if(other.CompareTag("bullet")){
+        this.transform.Translate(Vector2.right*-2);}
     }
 }
