@@ -42,11 +42,13 @@ public class Player : MonoBehaviour
         Move();
         if (Input.GetKeyDown(KeyCode.Space)&&  isGrounded)
         {
+            anim.SetBool("jump",true);
             Jump();
         }
         if (Input.GetKeyDown(KeyCode.F) && hitsnowile == true)
         {
             getbullet();
+            anim.SetTrigger("grab");
            
         }
          if(snowUI.current_snow<0 && Input.GetKey(KeyCode.K)){
@@ -69,16 +71,16 @@ public class Player : MonoBehaviour
                 snowUI.current_snow-=1;
                 snowUI.current_snow = Mathf.Max(snowUI.current_snow,-1);
                 
-                anim.SetBool("shoot",true);
+                anim.SetTrigger("attack");
                 angle_var = 1;
-                Invoke("disable_anim",0.2f);
+                //Invoke("disable_anim",0.2f);
             }
             
         }
     }
-    void disable_anim(){
-        anim.SetBool("shoot",false);
-    }
+//    void disable_anim(){
+//        anim.SetBool("shoot",false);
+//    }
     void shoot()
     {
         //Debug.Log("shoot");
@@ -91,7 +93,6 @@ public class Player : MonoBehaviour
     void Jump()
     {
         isGrounded =  false;
-        anim.SetBool("jump",true);
         m_rigidbody.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
     }
 
