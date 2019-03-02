@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected float bulletspeed = 0.1f;
     [SerializeField] protected float playerforce = 500f;
     [SerializeField] protected float angle_var = 1;
+    private int healthbar;
     
     public gather_snow snowUI;
     // Start is called before the first frame update
@@ -56,7 +57,7 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.K))
             {
                 angle_var = angle_var + Time.deltaTime;
-                Debug.Log(angle_var);
+                //Debug.Log(angle_var);
 
 
             }
@@ -80,7 +81,7 @@ public class Player : MonoBehaviour
     }
     void shoot()
     {
-        Debug.Log("shoot");
+        //Debug.Log("shoot");
         GameObject b = Instantiate(bullet, fp.GetComponent<Transform>().position, Quaternion.identity);
         Rigidbody2D bulletbody = b.GetComponent<Rigidbody2D>();
         Vector3 dir = new Vector3(1,1*angle_var);

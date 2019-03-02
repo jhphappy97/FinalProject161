@@ -110,6 +110,6 @@ public class Monster2 : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("bullet")){
-        this.transform.Translate(Vector2.right*-2);}
+        this.transform.Translate(Vector2.right*2);}
     }
 }
