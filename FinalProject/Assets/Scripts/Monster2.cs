@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 public class Monster2 : MonoBehaviour
 {
     public Rigidbody2D player;
@@ -112,15 +112,4 @@ public class Monster2 : MonoBehaviour
         if(other.CompareTag("bullet")){
         this.transform.Translate(Vector2.right*2);}
     }
-
-
-    void winningcondition ()
-    { 
-        if (enemy.position.y < -12.6)
-        {
-            SceneManager.LoadScene("winningscene");
-        }
-    }
-
-
 }
