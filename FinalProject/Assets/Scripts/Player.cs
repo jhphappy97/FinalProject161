@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected float bulletspeed = 0.1f;
     [SerializeField] protected float playerforce = 500f;
     [SerializeField] protected float angle_var = 1;
+    private int healthbar;
     
     public gather_snow snowUI;
     // Start is called before the first frame update
