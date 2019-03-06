@@ -8,7 +8,7 @@ public class Start_UI : MonoBehaviour
     public GameObject i1;
     public GameObject i2;
     float time;
-    bool begin;
+    public static bool begin;
     // Start is called before the first frame update
     void Start()
     {
