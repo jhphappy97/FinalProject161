@@ -44,12 +44,12 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
     }
 
-    public void LoadMain()
-    {
-        Debug.Log("Loading main menu");
-        Start_UI.begin = false;
-        SceneManager.LoadScene("start scene");
-    }
+    //public void LoadMain()
+    //{
+    //   Debug.Log("Loading main menu");
+    //  Start_UI.begin = false;
+    // SceneManager.LoadScene("start scene");
+    //}
         public void Quit()
     {
         Debug.Log("Quit Game");
