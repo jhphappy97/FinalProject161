@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected float bulletspeed = 0.1f;
     [SerializeField] protected float playerforce = 500f;
     [SerializeField] protected float angle_var = 1;
+    private int healthbar;
     
     public gather_snow snowUI;
     // Start is called before the first frame update
@@ -41,11 +42,13 @@ public class Player : MonoBehaviour
         Move();
         if (Input.GetKeyDown(KeyCode.Space)&&  isGrounded)
         {
+            anim.SetBool("jump",true);
             Jump();
         }
         if (Input.GetKeyDown(KeyCode.F) && hitsnowile == true)
         {
             getbullet();
+            anim.SetTrigger("grab");
            
         }
          if(snowUI.current_snow<0 && Input.GetKey(KeyCode.K)){
@@ -56,7 +59,7 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.K))
             {
                 angle_var = angle_var + Time.deltaTime;
-                Debug.Log(angle_var);
+                //Debug.Log(angle_var);
 
 
             }
@@ -68,19 +71,19 @@ public class Player : MonoBehaviour
                 snowUI.current_snow-=1;
                 snowUI.current_snow = Mathf.Max(snowUI.current_snow,-1);
                 
-                anim.SetBool("shoot",true);
+                anim.SetTrigger("attack");
                 angle_var = 1;
-                Invoke("disable_anim",0.2f);
+                //Invoke("disable_anim",0.2f);
             }
             
         }
     }
-    void disable_anim(){
-        anim.SetBool("shoot",false);
-    }
+//    void disable_anim(){
+//        anim.SetBool("shoot",false);
+//    }
     void shoot()
     {
-        Debug.Log("shoot");
+        //Debug.Log("shoot");
         GameObject b = Instantiate(bullet, fp.GetComponent<Transform>().position, Quaternion.identity);
         Rigidbody2D bulletbody = b.GetComponent<Rigidbody2D>();
         Vector3 dir = new Vector3(1,1*angle_var);
@@ -90,7 +93,6 @@ public class Player : MonoBehaviour
     void Jump()
     {
         isGrounded =  false;
-        anim.SetBool("jump",true);
         m_rigidbody.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
     }
 

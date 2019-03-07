@@ -9,16 +9,19 @@ public class Monster2 : MonoBehaviour
     //public GameObject fireBalls;
     private bool gotHit = false;
     [SerializeField] private float speed = 2.0f;
-    [SerializeField] private float timeBetweenHitLimit = 1f, timeBetweenFireLimit = 3f;
+    [SerializeField] private float timeBetweenFireLimit = 3f;
     private float timerForFire, timerForHit;
     private bool right = false;
     private bool canFire = true;
+    private Animator anim;
     
-    public float back=5;
+    public float timeBetweenHitLimit = 0.05f; 
+    public float knockback_speed = 5f;
+    
     // Start is called before the first frame update
     void Start()
     {
-
+        anim = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,8 +35,11 @@ public class Monster2 : MonoBehaviour
         }
         if(gotHit)
         {
+    
             timerForHit += Time.deltaTime;
-            if (timerForHit >= timeBetweenHitLimit)
+            Debug.Log("gotHit");
+              transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x+2,this.transform.position.y),knockback_speed*Time.deltaTime);
+              if (timerForHit >= timeBetweenHitLimit)
                 gotHit = false;
         }
         if (!gotHit)
@@ -98,18 +104,19 @@ public class Monster2 : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+//        if (collision.collider.CompareTag("Player"))
         {
-            gotHit = true;
+        
         }
-//        if (collision.collider.CompareTag("bullet"))
-//        {
-//            enemy.AddForce(new Vector2(12f,-2.729f),ForceMode2D.Force);
-//            //enemy.velocity = new Vector2(-enemy.velocity.x-10, enemy.velocity.y);
-//        }
+
     }
     void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("bullet")){
-        this.transform.Translate(Vector2.right*-2);}
+        gotHit=true;
+        timerForHit = 0f;
+        anim.SetTrigger("enemy_getattack");
+        }
+    }
+    void OnTriggerExit2D(Collider2D other){
     }
 }
