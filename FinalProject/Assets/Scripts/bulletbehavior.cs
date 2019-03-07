@@ -7,7 +7,19 @@ public class bulletbehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        float y = GameObject.FindGameObjectWithTag("Player").transform.rotation.y;
+        Debug.Log("Players Y rotation: " + GameObject.FindGameObjectWithTag("Player").transform.rotation.y);
+        if (y == -1)
+        {
+            Debug.Log("Switch");
+            y = 180;
+            Rigidbody2D temp = this.GetComponent<Rigidbody2D>();
+            Vector3 vel = temp.velocity;
+            vel.y *= -1;
 
+            temp.velocity = vel;
+        }
+        this.transform.Rotate(new Vector3(this.transform.rotation.x, y, this.transform.rotation.z));
     }
 
     // Update is called once per frame

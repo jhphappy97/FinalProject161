@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1752919494671858664}
   - component: {fileID: 1045628223806818419}
   - component: {fileID: 3575611199247313444}
+  - component: {fileID: 1855703668999250428}
   m_Layer: 0
   m_Name: SnowBallFightArt_11
   m_TagString: ground
@@ -89,7 +90,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 7704078511802096524}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 9270ce7f9b26843299129b4d76da8eaa, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -106,3 +107,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3333334, y: 0.86895746}
   m_EdgeRadius: 0
+--- !u!68 &1855703668999250428
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704078511802096524}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 9270ce7f9b26843299129b4d76da8eaa, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.6666667, y: 0}
+  - {x: 0.6666667, y: 0}

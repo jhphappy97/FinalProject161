@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,16 +17,22 @@ public class Player : MonoBehaviour
     [SerializeField] protected float jumpforce = 7.5f;
     private bool hitsnowile = false;
     private bool shootstatus = false;
+    public Image life;
     public GameObject bullet;
     [SerializeField] protected float bulletspeed = 0.1f;
     [SerializeField] protected float playerforce = 500f;
     [SerializeField] protected float angle_var = 1;
     private int healthbar;
-    
+    private Vector2 HealthBarSize;
+    private bool notHit= true;
+    private float hitTimer = 3f;
+
     public gather_snow snowUI;
     // Start is called before the first frame update
     private void Awake()
     {
+        healthbar = 4;
+        HealthBarSize = life.rectTransform.sizeDelta;
         m_spriteRenderer = this.GetComponent<SpriteRenderer>();
         anim = this.GetComponent<Animator>();
     }
@@ -39,6 +46,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!notHit && (hitTimer -= Time.deltaTime) < 0)
+        {
+            notHit = true;
+            hitTimer = 3f;
+        }
+
         Move();
         if (Input.GetKeyDown(KeyCode.Space)&&  isGrounded)
         {
@@ -54,7 +67,7 @@ public class Player : MonoBehaviour
          if(snowUI.current_snow<0 && Input.GetKey(KeyCode.K)){
            dialog.gameObject.SetActive(true);
            }
-        if(snowUI.current_snow>=0){
+        if(snowUI.current_snow>0){
             dialog.gameObject.SetActive(false);
             if (Input.GetKey(KeyCode.K))
             {
@@ -75,7 +88,6 @@ public class Player : MonoBehaviour
                 angle_var = 1;
                 //Invoke("disable_anim",0.2f);
             }
-            
         }
     }
 //    void disable_anim(){
@@ -99,7 +111,8 @@ public class Player : MonoBehaviour
     void Move()
     {
         float movemnetModifier = Input.GetAxis("Horizontal");
-        if(movemnetModifier == 0){
+        if(movemnetModifier == 0)
+        {
             anim.SetBool("walk",false);
         }
         if(movemnetModifier > 0)
@@ -109,7 +122,7 @@ public class Player : MonoBehaviour
         }
         else if(movemnetModifier < 0)
         {
-            //\\m_spriteRenderer.flipX = true;
+            //m_spriteRenderer.flipX = true;
             anim.SetBool("walk",true);
         }
         Vector2 currentVelocity = m_rigidbody.velocity;
@@ -135,6 +148,20 @@ public class Player : MonoBehaviour
         {
             hitsnowile = true;
         }
+        if(collision.collider.CompareTag("monster") && notHit)
+        {
+            Debug.Log("Lose Life!!!!");
+            life.rectTransform.sizeDelta = new Vector2(HealthBarSize.x * (0.25f * --healthbar), HealthBarSize.y);
+            Vector3 pos = life.rectTransform.position;
+            pos.x -= (pos.x * 0.25f/1.5f);
+            life.rectTransform.position = pos;
+            if (healthbar == 0)
+                Debug.Log("GameOver!!!!");
+            notHit = false;
+
+        }
+        if (collision.collider.CompareTag("monster"))
+            m_rigidbody.AddForce(Vector2.left * 5, ForceMode2D.Impulse);
     }
     private void OnCollisionExit2D(Collision2D collision)
     {

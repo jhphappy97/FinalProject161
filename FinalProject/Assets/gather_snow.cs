@@ -40,6 +40,7 @@ public class gather_snow : MonoBehaviour
         if(collision.collider.CompareTag("Player"))
         {   
             UI_hint.SetActive(false);
+            can_gather = false;
             }
     }
 }
