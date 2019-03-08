@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,39 +9,56 @@ public class gather_snow : MonoBehaviour
     public GameObject[] Total_snow_can_store;
     public int current_snow;
     private bool can_gather;
+    private snowPileScript snowPile;
     // Start is called before the first frame update
     void Start()
     {
-        current_snow=-1;
+        current_snow = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(can_gather){
-        if (Input.GetKeyDown(KeyCode.F)){
-                current_snow+=1;
-                Debug.Log(current_snow);
-                current_snow = Mathf.Min(current_snow,4);
-                Total_snow_can_store[current_snow].SetActive(true);
-                }
+        if(can_gather)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                incSnow();
+                snowPile.decSnow();
+                Debug.Log("current snow: " + current_snow);
+                if(current_snow > 0)
+                    Total_snow_can_store[current_snow - 1].SetActive(true);
             }
+        }
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collider)
     {
-        if(collision.collider.CompareTag("Player"))
-        {   
-            
+        if(collider.CompareTag("Snowpile"))
+        {
+            snowPile = collider.GetComponent<snowPileScript>();
             UI_hint.SetActive(true);
             can_gather=true;
         }
     }
-     private void OnCollisionExit2D(Collision2D collision)
+     private void OnTriggerExit2D(Collider2D collider)
     {
-        if(collision.collider.CompareTag("Player"))
+        if(collider.CompareTag("Snowpile"))
         {   
             UI_hint.SetActive(false);
             can_gather = false;
-            }
+            collider.GetComponent<snowPileScript>().makeGone();
+        }
+    }
+
+    public void decSnow()
+    {
+        if (--current_snow < 0)
+            current_snow = 0;
+    }
+
+    public void incSnow()
+    {
+        if (++current_snow > 4)
+            current_snow = 4;
     }
 }

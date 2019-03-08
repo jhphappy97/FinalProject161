@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,8 +27,7 @@ public class Player : MonoBehaviour
     private Vector2 HealthBarSize;
     private bool notHit= true;
     private float hitTimer = 3f;
-
-    public gather_snow snowUI;
+    private gather_snow snowUI;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         HealthBarSize = life.rectTransform.sizeDelta;
         m_spriteRenderer = this.GetComponent<SpriteRenderer>();
         anim = this.GetComponent<Animator>();
+        snowUI = this.GetComponent<gather_snow>();
     }
     void Start()
     {
@@ -46,66 +47,59 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gotHit();
+        Move();
+        Jump();
+        getbullet();
+        shoot();
+    }
+
+    private void gotHit()
+    {
         if (!notHit && (hitTimer -= Time.deltaTime) < 0)
         {
             notHit = true;
             hitTimer = 3f;
         }
+    }
 
-        Move();
-        if (Input.GetKeyDown(KeyCode.Space)&&  isGrounded)
+    //    void disable_anim(){
+    //        anim.SetBool("shoot",false);
+    //    }
+    void shoot()
+    {
+        if (snowUI.current_snow < 0 && Input.GetKey(KeyCode.K)) dialog.gameObject.SetActive(true);//this is to tell user they need more snow
+        if (snowUI.current_snow > 0)
         {
-            anim.SetBool("jump",true);
-            Jump();
-        }
-        if (Input.GetKeyDown(KeyCode.F) && hitsnowile == true)
-        {
-            getbullet();
-            anim.SetTrigger("grab");
-           
-        }
-         if(snowUI.current_snow<0 && Input.GetKey(KeyCode.K)){
-           dialog.gameObject.SetActive(true);
-           }
-        if(snowUI.current_snow>0){
-            dialog.gameObject.SetActive(false);
-            if (Input.GetKey(KeyCode.K))
-            {
-                angle_var = angle_var + Time.deltaTime;
-                //Debug.Log(angle_var);
-
-
-            }
+            dialog.gameObject.SetActive(false);//turn off hint about snow
+            if (Input.GetKey(KeyCode.K)) angle_var = angle_var + Time.deltaTime;
             if (Input.GetKeyUp(KeyCode.K))
             {
-                shoot();
-                
-                snowUI.Total_snow_can_store[snowUI.current_snow].SetActive(false);
-                snowUI.current_snow-=1;
-                snowUI.current_snow = Mathf.Max(snowUI.current_snow,-1);
-                
+                GameObject b = Instantiate(bullet, fp.GetComponent<Transform>().position, Quaternion.identity);
+                Rigidbody2D bulletbody = b.GetComponent<Rigidbody2D>();
+                Vector3 dir = new Vector3(1, 1 * angle_var);
+                bulletbody.AddForce(dir * playerforce);
+                snowUI.Total_snow_can_store[snowUI.current_snow - 1].SetActive(false);
+                snowUI.decSnow();
                 anim.SetTrigger("attack");
                 angle_var = 1;
-                //Invoke("disable_anim",0.2f);
             }
         }
     }
-//    void disable_anim(){
-//        anim.SetBool("shoot",false);
-//    }
-    void shoot()
-    {
-        //Debug.Log("shoot");
-        GameObject b = Instantiate(bullet, fp.GetComponent<Transform>().position, Quaternion.identity);
-        Rigidbody2D bulletbody = b.GetComponent<Rigidbody2D>();
-        Vector3 dir = new Vector3(1,1*angle_var);
-        bulletbody.AddForce(dir * playerforce);
-
-        }
     void Jump()
     {
-        isGrounded =  false;
-        m_rigidbody.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space))
+        { 
+            //isGrounded =  false;
+            Vector2 feetPosition = new Vector2(this.transform.position.x, m_collider.bounds.min.y);
+            RaycastHit2D hitInfo = Physics2D.Raycast(feetPosition, Vector2.down, 0.1f);
+            if (hitInfo)
+            {
+                Debug.Log("hit something");
+                anim.SetBool("jump", true);
+                m_rigidbody.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+            }
+        }
     }
 
     void Move()
@@ -160,8 +154,10 @@ public class Player : MonoBehaviour
             notHit = false;
 
         }
-        if (collision.collider.CompareTag("monster"))
-            m_rigidbody.AddForce(Vector2.left * 5, ForceMode2D.Impulse);
+        //if (collision.collider.CompareTag("monster"))
+        //{
+        //    m_rigidbody.mass = 0;
+        //}
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -169,10 +165,18 @@ public class Player : MonoBehaviour
         {
             isGrounded = false;
         }
+        //if (collision.collider.CompareTag("monster"))
+        //{
+        //    m_rigidbody.mass = 1;
+        //}
     }
     private void getbullet()
     {
-        shootstatus = true;
+        if (Input.GetKeyDown(KeyCode.F) && hitsnowile == true)
+        {
+            anim.SetTrigger("grab");
+            shootstatus = true;
+        }
     }
     private void Flip()
     {

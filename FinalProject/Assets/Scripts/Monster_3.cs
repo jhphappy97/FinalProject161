@@ -19,7 +19,8 @@ public class Monster_3 : MonoBehaviour
     private bool choose = true;
     private float jumpTime = 0f;
     [SerializeField] private float jumpForce = 20f;
-
+    public EnemyHealthBar healthBar;
+    private int health = 30;
     public float timeBetweenHitLimit = 0.05f;
     public float knockback_speed = 5f;
 
@@ -110,10 +111,10 @@ public class Monster_3 : MonoBehaviour
             }
             horizontal_translation = 1 * speed;
         }
-        if (enemy.position.x >= 6.5f && horizontal_translation > 0)
-            horizontal_translation = 0;
-        if (enemy.position.x <= -6.5f && horizontal_translation < 0)
-            horizontal_translation = 0;
+        //if (enemy.position.x >= 6.5f && horizontal_translation > 0)
+        //    horizontal_translation = 0;
+        //if (enemy.position.x <= -6.5f && horizontal_translation < 0)
+        //    horizontal_translation = 0;
         if (System.Math.Abs(enemy.position.x - player.position.x) < 4f)
         {
             if (canFire)
@@ -151,6 +152,8 @@ public class Monster_3 : MonoBehaviour
     {
         if (other.CompareTag("bullet"))
         {
+            healthBar.decHealth(--health);
+            if (health == 0) ;//end game here
             if (other.transform.position.y > -2f)
                 head = true;
             else head = false;
