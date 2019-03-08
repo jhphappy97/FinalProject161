@@ -128,39 +128,33 @@ public class Monster_3 : MonoBehaviour
         float multiplier = 1;
         if (head)
             multiplier = 3;
-
         timerForHit += Time.deltaTime;
         Debug.Log("gotHit");
-        transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x + 2, this.transform.position.y), knockback_speed * multiplier * Time.deltaTime);
+        if (player.position.x > enemy.position.x)
+            transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x - 2, this.transform.position.y), knockback_speed * multiplier * Time.deltaTime);
+        else
+            transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x + 2, this.transform.position.y), knockback_speed * multiplier * Time.deltaTime);
         if (timerForHit >= timeBetweenHitLimit)
             gotHit = false;
     }
 
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.otherCollider is CircleCollider2D)
-    //        head = true;
-    //    if (collision.collider.CompareTag("bullet"))
-    //    {
-    //        gotHit = true;
-    //        timerForHit = 0f;
-    //        anim.SetTrigger("enemy_getattack");
-    //    }
-
-    //}
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("bullet"))
+        if (collision.collider.CompareTag("bullet"))
         {
             healthBar.decHealth(--health);
             if (health == 0) ;//end game here
-            if (other.transform.position.y > -2f)
+            if (collision.collider.transform.position.y > -2f)
                 head = true;
             else head = false;
             gotHit = true;
             timerForHit = 0f;
             anim.SetTrigger("enemy_getattack");
         }
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+      
 
     }
     void OnTriggerExit2D(Collider2D other)

@@ -111,6 +111,10 @@ public class minion : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
             speed = 0;
+        if (collision.collider.CompareTag("bullet"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -121,10 +125,6 @@ public class minion : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("bullet"))
-        {
-            Destroy(this.gameObject);
-        }
         if (other.CompareTag("ground"))
         {
             speed *= -1;

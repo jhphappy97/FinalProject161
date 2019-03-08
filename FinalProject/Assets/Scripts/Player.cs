@@ -75,10 +75,10 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.K)) angle_var = angle_var + Time.deltaTime;
             if (Input.GetKeyUp(KeyCode.K))
             {
-                GameObject b = Instantiate(bullet, fp.GetComponent<Transform>().position, Quaternion.identity);
-                Rigidbody2D bulletbody = b.GetComponent<Rigidbody2D>();
-                Vector3 dir = new Vector3(1, 1 * angle_var);
-                bulletbody.AddForce(dir * playerforce);
+                Vector3 pos = fp.GetComponent<Transform>().position;
+                pos.x += 0.5f;
+                GameObject b = Instantiate(bullet, pos, Quaternion.identity);
+                b.GetComponent<bulletbehavior>().fired(facingright, angle_var, playerforce);
                 snowUI.Total_snow_can_store[snowUI.current_snow - 1].SetActive(false);
                 snowUI.decSnow();
                 anim.SetTrigger("attack");
