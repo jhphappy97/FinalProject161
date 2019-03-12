@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -101,7 +102,14 @@ public class Player : MonoBehaviour
             }
         }
     }
+    void gameover()
+    {
+        if (this.transform.position.y < -20.0f)
+        {
+            SceneManager.LoadScene("Gameoverscene");
+        }
 
+    }
     void Move()
     {
         float movemnetModifier = Input.GetAxis("Horizontal");
@@ -193,5 +201,7 @@ public class Player : MonoBehaviour
         facingright = !facingright;
         transform.Rotate(0f, 180f, 0f);
     }
+
+
 
 }
