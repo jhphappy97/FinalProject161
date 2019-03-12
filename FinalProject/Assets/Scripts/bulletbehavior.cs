@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class bulletbehavior : MonoBehaviour
 {
+    
+    public GameObject particlePrefab;
+    public GameObject[] trailPrefab;
+    private int index = 0;
     // Start is called before the first frame update
     void Start()
     {
-
+        InvokeRepeating("Trail",0.1f,0.1f);
     }
 
     // Update is called once per frame
@@ -64,10 +68,20 @@ public class bulletbehavior : MonoBehaviour
         }
         if (collision.collider.CompareTag("monster"))
         {
-
+            Instantiate(particlePrefab,transform.position,Quaternion.identity);
             Debug.Log("destroy");
             Destroy(this.gameObject);
         }
 
+    }
+    
+    public void Trail(){
+        if(GetComponent<Rigidbody2D>().velocity.sqrMagnitude>25){
+        
+    
+        Instantiate(trailPrefab[index],transform.position,Quaternion.identity);
+        index=(index+1)%trailPrefab.Length;
+        }
+        
     }
 }

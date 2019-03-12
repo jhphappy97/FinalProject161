@@ -126,6 +126,13 @@ public class Player : MonoBehaviour
             Flip();
         }
     }
+    private void OnTriggerStay2D(Collider2D collision){
+        if(collision.gameObject.tag =="Snowpile")
+        {
+            Debug.Log(hitsnowile);
+            hitsnowile = true;
+        }
+    }
     private void OnCollisionStay2D(Collision2D collision)
     {
         if(collision.collider.CompareTag("ground"))
@@ -140,6 +147,7 @@ public class Player : MonoBehaviour
         }
         if(collision.collider.CompareTag("Snowpile"))
         {
+            Debug.Log(hitsnowile);
             hitsnowile = true;
         }
         if(collision.collider.CompareTag("monster") && notHit)
@@ -172,8 +180,10 @@ public class Player : MonoBehaviour
     }
     private void getbullet()
     {
+        
         if (Input.GetKeyDown(KeyCode.F) && hitsnowile == true)
         {
+            
             anim.SetTrigger("grab");
             shootstatus = true;
         }

@@ -141,3 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6febf14f57d4b2d90593f7162deafc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 2876952686163817757, guid: 89c2ca0ee0fce477c9f4a38eb98974ea,
+    type: 3}
+  trailPrefab:
+  - {fileID: 3915447675237663682, guid: 1337ea6f7546e40b69d1c6ebff8fae32, type: 3}
+  - {fileID: 2423823195953692102, guid: 6bd1c0b1b3f5143568b79889bd21ea51, type: 3}
+  - {fileID: 134901870268331855, guid: 62646fddfc00244d8adbab02b058d059, type: 3}
