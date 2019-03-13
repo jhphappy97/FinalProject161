@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public GameObject bullet;
     [SerializeField] protected float bulletspeed = 0.1f;
     [SerializeField] protected float playerforce = 500f;
-    [SerializeField] protected float angle_var = 1;
+    [SerializeField] public float angle_var = 1;
     private int healthbar;
     private Vector2 HealthBarSize;
     private bool notHit= true;
