@@ -22,7 +22,7 @@ public class Start_UI : MonoBehaviour
         time+= Time.deltaTime;
         i2.transform.Translate(Vector2.down*700*Time.deltaTime);
             if(time>0.2f){
-                SceneManager.LoadScene("SampleScene");
+                SceneManager.LoadScene("Level_2");
             }
         }
      

@@ -8,6 +8,8 @@ TagManager:
   - Snowpile
   - monster
   - bullet
+  - playerHurt
+  - throw
   layers:
   - Default
   - TransparentFX

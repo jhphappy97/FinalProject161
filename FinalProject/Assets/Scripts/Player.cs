@@ -29,15 +29,28 @@ public class Player : MonoBehaviour
     private bool notHit= true;
     private float hitTimer = 3f;
     private gather_snow snowUI;
+    public AudioSource fire;
+    public AudioSource hurt;
+    public Text timerText;
+    private int timer;
+    private float second = 1f;
     // Start is called before the first frame update
     private void Awake()
     {
         healthbar = 4;
+        timer = 99;
+        setTime();
         HealthBarSize = life.rectTransform.sizeDelta;
         m_spriteRenderer = this.GetComponent<SpriteRenderer>();
         anim = this.GetComponent<Animator>();
         snowUI = this.GetComponent<gather_snow>();
     }
+
+    private void setTime()
+    {
+        timerText.text = timer.ToString();
+    }
+
     void Start()
     {
         dialog = this.gameObject.transform.GetChild(1);
@@ -48,20 +61,58 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkTime();
         gotHit();
         Move();
         Jump();
         getbullet();
         shoot();
+        checkGameOver();
+    }
+
+    private void checkTime()
+    {
+        if((second -= Time.deltaTime) <= 0f)
+        {
+            second = 1f;
+            --timer;
+            setTime();
+        }
+    }
+
+    private void checkGameOver()
+    {
+        if (this.transform.position.y < -20.0f || timer <= 0f)
+            gameover();
     }
 
     private void gotHit()
     {
+        if (!notHit)
+        {
+            Debug.Log("unblink");
+            unBlink();
+        }
         if (!notHit && (hitTimer -= Time.deltaTime) < 0)
         {
             notHit = true;
             hitTimer = 3f;
         }
+        else if (hitTimer < 2.99999999f)
+        {
+            Debug.Log("blink");
+            blink();
+        }
+    }
+
+    private void unBlink()
+    {
+        m_spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+    }
+
+    private void blink()
+    {
+        m_spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
     }
 
     //    void disable_anim(){
@@ -69,13 +120,14 @@ public class Player : MonoBehaviour
     //    }
     void shoot()
     {
-        if (snowUI.current_snow < 0 && Input.GetKey(KeyCode.K)) dialog.gameObject.SetActive(true);//this is to tell user they need more snow
+        if (snowUI.current_snow < 0 && Input.GetKey(KeyCode.Space)) dialog.gameObject.SetActive(true);//this is to tell user they need more snow
         if (snowUI.current_snow > 0)
         {
             dialog.gameObject.SetActive(false);//turn off hint about snow
-            if (Input.GetKey(KeyCode.K)) angle_var = angle_var + Time.deltaTime;
-            if (Input.GetKeyUp(KeyCode.K))
+            if (Input.GetKey(KeyCode.Space)) angle_var = angle_var + Time.deltaTime;
+            if (Input.GetKeyUp(KeyCode.Space))
             {
+                fire.Play();
                 Vector3 pos = fp.GetComponent<Transform>().position;
                 pos.x += 0.5f;
                 GameObject b = Instantiate(bullet, pos, Quaternion.identity);
@@ -89,7 +141,7 @@ public class Player : MonoBehaviour
     }
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         { 
             //isGrounded =  false;
             Vector2 feetPosition = new Vector2(this.transform.position.x, m_collider.bounds.min.y);
@@ -99,16 +151,12 @@ public class Player : MonoBehaviour
                 Debug.Log("hit something");
                 anim.SetBool("jump", true);
                 m_rigidbody.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
-            }
+            } 
         }
     }
     void gameover()
-    {
-        if (this.transform.position.y < -20.0f)
-        {
-            SceneManager.LoadScene("Gameoverscene");
-        }
-
+    { 
+        SceneManager.LoadScene("Gameoverscene");
     }
     void Move()
     {
@@ -161,12 +209,13 @@ public class Player : MonoBehaviour
         if(collision.collider.CompareTag("monster") && notHit)
         {
             Debug.Log("Lose Life!!!!");
+            hurt.Play();
             life.rectTransform.sizeDelta = new Vector2(HealthBarSize.x * (0.25f * --healthbar), HealthBarSize.y);
             Vector3 pos = life.rectTransform.position;
             pos.x -= (pos.x * 0.25f/1.5f);
             life.rectTransform.position = pos;
             if (healthbar == 0)
-                Debug.Log("GameOver!!!!");
+                gameover();
             notHit = false;
 
         }
@@ -200,6 +249,11 @@ public class Player : MonoBehaviour
     {
         facingright = !facingright;
         transform.Rotate(0f, 180f, 0f);
+    }
+    public void incTimer()
+    {
+        timer += 5;
+        setTime();
     }
 
 
