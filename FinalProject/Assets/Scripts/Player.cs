@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private Transform dialog;
     [SerializeField] protected float speed = 5;
     [SerializeField] protected float jumpforce = 7.5f;
-    private bool shootstatus = false;
+    public bool shootstatus = false;
     public Image life;
     public GameObject bullet;
     [SerializeField] protected float bulletspeed = 0.1f;
@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     public Text timerText;
     private int timer;
     private float second = 1f;
+    
+    public GameObject []healparticles;
 
     // Start is called before the first frame update
     private void Awake()
@@ -192,7 +194,12 @@ public class Player : MonoBehaviour
             Vector3 pos = life.rectTransform.position;
             pos.x += (pos.x * 0.25f / 1.5f);
             life.rectTransform.position = pos;
+            //todo heal sound
+            GameObject p = Instantiate(healparticles[0], this.transform.position, Quaternion.identity);
+            GameObject p2 = Instantiate(healparticles[1], this.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
+            Destroy(p,1f);
+            Destroy(p2,1f);
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -253,7 +260,10 @@ public class Player : MonoBehaviour
         {
             
             anim.SetTrigger("grab");
-            shootstatus = true;
+            shootstatus = true; //to see if gathered snow once;
+        }
+        if (Input.GetKeyUp(KeyCode.F)){
+            shootstatus = false;
         }
     }
     private void Flip()
