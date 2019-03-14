@@ -138,3 +138,4 @@ MonoBehaviour:
   jumpForce: 20
   timeBetweenHitLimit: 0.05
   knockback_speed: 5
+  potion: {fileID: 1287545748983138557, guid: 99e2b80a94f977843b5da6a3bd5f3275, type: 3}

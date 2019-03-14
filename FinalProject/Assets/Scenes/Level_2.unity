@@ -1704,7 +1704,7 @@ PrefabInstance:
     - target: {fileID: 6806935231431361080, guid: 1bb4ef784e668944599bc7f65f79a3f8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.44
+      value: -18.7
       objectReference: {fileID: 0}
     - target: {fileID: 6806935231431361080, guid: 1bb4ef784e668944599bc7f65f79a3f8,
         type: 3}
@@ -2440,6 +2440,8 @@ MonoBehaviour:
   healthBar: {fileID: 1481274164}
   timeBetweenHitLimit: 0.05
   knockback_speed: 40
+  fireBalls: {fileID: 134901870268331855, guid: 62646fddfc00244d8adbab02b058d059,
+    type: 3}
 --- !u!58 &1173167907
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2692,7 +2694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.047169805, g: 0.04338732, b: 0.04338732, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2701,10 +2703,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2717,6 +2719,8 @@ MonoBehaviour:
     UP to jump
 
     SPACE to shoot
+
+    You cannot shoot when you stand on the snowpile
 
     Shoot a minion and get an extra 5 seconds!
 
@@ -5386,35 +5390,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
-        type: 3}
-      propertyPath: playerScript
-      value: 
-      objectReference: {fileID: 1981648791}
-    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
-        type: 3}
-      propertyPath: aim
-      value: 
-      objectReference: {fileID: 248286346}
-    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
-        type: 3}
-      propertyPath: r1
-      value: 
-      objectReference: {fileID: 84372862}
-    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
-        type: 3}
-      propertyPath: r2
-      value: 
-      objectReference: {fileID: 181892724}
-    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
-        type: 3}
-      propertyPath: r3
-      value: 
-      objectReference: {fileID: 1115235064}
     - target: {fileID: 8477412170922594105, guid: ab9c6b92eba96eb4c9959432d146c260,
         type: 3}
       propertyPath: m_Name
       value: PlayerManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1020773457311544581, guid: ab9c6b92eba96eb4c9959432d146c260,
+        type: 3}
+      propertyPath: m_Name
+      value: aim UI
       objectReference: {fileID: 0}
     - target: {fileID: 8477412170922594110, guid: ab9c6b92eba96eb4c9959432d146c260,
         type: 3}
@@ -5471,11 +5455,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8477412170922594108, guid: ab9c6b92eba96eb4c9959432d146c260,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 4b53ec475867f4873bcc91dd0450aa83, type: 2}
     - target: {fileID: 8477412169920201886, guid: ab9c6b92eba96eb4c9959432d146c260,
         type: 3}
       propertyPath: life
@@ -5506,6 +5485,36 @@ PrefabInstance:
       propertyPath: jumpforce
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
+        type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 1981648791}
+    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
+        type: 3}
+      propertyPath: aim
+      value: 
+      objectReference: {fileID: 248286346}
+    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
+        type: 3}
+      propertyPath: r1
+      value: 
+      objectReference: {fileID: 84372862}
+    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
+        type: 3}
+      propertyPath: r2
+      value: 
+      objectReference: {fileID: 181892724}
+    - target: {fileID: 1495312191754885436, guid: ab9c6b92eba96eb4c9959432d146c260,
+        type: 3}
+      propertyPath: r3
+      value: 
+      objectReference: {fileID: 1115235064}
+    - target: {fileID: 8477412170922594108, guid: ab9c6b92eba96eb4c9959432d146c260,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4b53ec475867f4873bcc91dd0450aa83, type: 2}
     - target: {fileID: 8477412171721452748, guid: ab9c6b92eba96eb4c9959432d146c260,
         type: 3}
       propertyPath: m_Size.y
@@ -5570,11 +5579,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.50828576
       objectReference: {fileID: 0}
-    - target: {fileID: 1020773457311544581, guid: ab9c6b92eba96eb4c9959432d146c260,
-        type: 3}
-      propertyPath: m_Name
-      value: aim UI
-      objectReference: {fileID: 0}
     - target: {fileID: 7591414011665834018, guid: ab9c6b92eba96eb4c9959432d146c260,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5599,6 +5603,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 2.4031942
+      objectReference: {fileID: 0}
+    - target: {fileID: 7591414012478518763, guid: ab9c6b92eba96eb4c9959432d146c260,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7591414012478518763, guid: ab9c6b92eba96eb4c9959432d146c260,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab9c6b92eba96eb4c9959432d146c260, type: 3}

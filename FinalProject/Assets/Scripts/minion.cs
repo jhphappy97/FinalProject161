@@ -22,7 +22,7 @@ public class minion : MonoBehaviour
 
     public float timeBetweenHitLimit = 0.05f;
     public float knockback_speed = 5f;
-
+    public GameObject potion;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +48,7 @@ public class minion : MonoBehaviour
         {
             player.GetComponent<Player>().incTimer();
             Destroy(this.gameObject);
+            Instantiate(potion, transform.position, transform.rotation);
         }
     }
 

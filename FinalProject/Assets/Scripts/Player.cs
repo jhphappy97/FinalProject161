@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
     private Transform dialog;
     [SerializeField] protected float speed = 5;
     [SerializeField] protected float jumpforce = 7.5f;
-    private bool hitsnowile = false;
     private bool shootstatus = false;
     public Image life;
     public GameObject bullet;
@@ -34,6 +33,7 @@ public class Player : MonoBehaviour
     public Text timerText;
     private int timer;
     private float second = 1f;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
     void shoot()
     {
         if (snowUI.current_snow < 0 && Input.GetKey(KeyCode.Space)) dialog.gameObject.SetActive(true);//this is to tell user they need more snow
-        if (snowUI.current_snow > 0)
+        if (snowUI.current_snow > 0 && snowUI.hitsnowile == false)
         {
             dialog.gameObject.SetActive(false);//turn off hint about snow
             if (Input.GetKey(KeyCode.Space)) angle_var = angle_var + Time.deltaTime;
@@ -182,11 +182,17 @@ public class Player : MonoBehaviour
             Flip();
         }
     }
-    private void OnTriggerStay2D(Collider2D collision){
-        if(collision.gameObject.tag =="Snowpile")
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("potion"))
         {
-            Debug.Log(hitsnowile);
-            hitsnowile = true;
+            life.rectTransform.sizeDelta = new Vector2(HealthBarSize.x * (0.25f * ++healthbar), HealthBarSize.y);
+            Vector3 pos = life.rectTransform.position;
+            pos.x += (pos.x * 0.25f / 1.5f);
+            life.rectTransform.position = pos;
+            Destroy(collision.gameObject);
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -201,11 +207,11 @@ public class Player : MonoBehaviour
                 anim.SetBool("jump",false);
             }
         }
-        if(collision.collider.CompareTag("Snowpile"))
-        {
-            Debug.Log(hitsnowile);
-            hitsnowile = true;
-        }
+        //if(collision.collider.CompareTag("Snowpile"))
+       // {
+          //  Debug.Log(hitsnowile);
+          //  hitsnowile = true;
+      //  }
         if(collision.collider.CompareTag("monster") && notHit)
         {
             Debug.Log("Lose Life!!!!");
@@ -234,11 +240,16 @@ public class Player : MonoBehaviour
         //{
         //    m_rigidbody.mass = 1;
         //}
+        //if (collision.collider.CompareTag("Snowpile"))
+        //{
+          //  Debug.Log(hitsnowile);
+         //   hitsnowile = false;
+       // }
     }
     private void getbullet()
     {
         
-        if (Input.GetKeyDown(KeyCode.F) && hitsnowile == true)
+        if (Input.GetKeyDown(KeyCode.F) && snowUI.hitsnowile == true)
         {
             
             anim.SetTrigger("grab");

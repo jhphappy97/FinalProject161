@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Monster_3 : MonoBehaviour
 {
     public Rigidbody2D player;
@@ -23,6 +23,7 @@ public class Monster_3 : MonoBehaviour
     private int health = 30;
     public float timeBetweenHitLimit = 0.05f;
     public float knockback_speed = 5f;
+    public GameObject fireBalls;
 
     // Start is called before the first frame update
     void Start()
@@ -34,15 +35,15 @@ public class Monster_3 : MonoBehaviour
     void Update()
     {
         //if (choose)
-        //    chooseJumpTime();
+           /// chooseJumpTime();
         //if (!choose && (jumpTime -= Time.deltaTime) < 0)
-            //jump();
+           // jump();
         //if (!canFire)
         //{
-        //    timerForFire += Time.deltaTime;
-        //    if (timerForFire >= timeBetweenFireLimit)
-        //        canFire = true;
-        //}
+          //  timerForFire += Time.deltaTime;
+            //if (timerForFire >= timeBetweenFireLimit)
+              //  canFire = true;
+       // }
         if (gotHit)
             hit();
         if (!gotHit)
@@ -69,25 +70,25 @@ public class Monster_3 : MonoBehaviour
     {
         ////instantiate the fireball;
         //print("fire");
-        //float x = enemy.position.x;
-        //float y = enemy.position.y;
-        //float rot = 0;
-        //if (right)
-        //{
-        //    print("fire right");
-        //    x += 2f;
-        //}
-        //else
-        //{
-        //    print("fire left");
-        //    x -= 2f;
-        //    rot = 180f;
-        //}
-        //GameObject bulletClone = (GameObject)Instantiate(fireBalls, new Vector3(x, y + 1, 0),Quaternion.Euler(0,rot,0));
-        //bulletClone.transform.Translate(new Vector3(-1, -1,0));
-        //bulletClone.GetComponent<FireballScript>().setRight(right);
-        //canFire = false;
-        //timerForFire = 0;
+        float x = enemy.position.x;
+        float y = enemy.position.y;
+        float rot = 0;
+        if (right)
+        {
+            print("fire right");
+            x += 2f;
+        }
+        else
+        {
+            print("fire left");
+            x -= 2f;
+            rot = 180f;
+        }
+        GameObject bulletClone = (GameObject)Instantiate(fireBalls, new Vector3(x, y + 1, 0),Quaternion.Euler(0,rot,0));
+        bulletClone.transform.Translate(new Vector3(-1, -1,0));
+        bulletClone.GetComponent<FireballScript>().setRight(right);
+        canFire = false;
+        timerForFire = 0;
     }
 
     void move()
@@ -115,11 +116,11 @@ public class Monster_3 : MonoBehaviour
         //    horizontal_translation = 0;
         //if (enemy.position.x <= -6.5f && horizontal_translation < 0)
         //    horizontal_translation = 0;
-        if (System.Math.Abs(enemy.position.x - player.position.x) < 4f)
-        {
-            if (canFire)
-                fire();
-        }
+        //if (System.Math.Abs(enemy.position.x - player.position.x) < 4f)
+       // {
+       //     if (canFire)
+      //          fire();
+      //  }
         enemy.velocity = new Vector2(horizontal_translation, enemy.velocity.y);
     }
 
@@ -143,7 +144,10 @@ public class Monster_3 : MonoBehaviour
         if (collision.collider.CompareTag("bullet"))
         {
             healthBar.decHealth(--health);
-            if (health == 0) ;//end game here
+            if (health == 0)
+            {
+                SceneManager.LoadScene("Gameoverscene");
+            }
             if (collision.collider.transform.position.y > -2f)
                 head = true;
             else head = false;

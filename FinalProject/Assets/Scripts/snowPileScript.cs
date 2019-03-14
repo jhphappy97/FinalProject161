@@ -45,13 +45,13 @@ public class snowPileScript : MonoBehaviour
 
     public void decSnow()
     {
-        if (--amount_of_snow < 0)
+        if (--amount_of_snow <= 0)
             amount_of_snow = 0;
     }
 
     public void makeGone()
     {
-        if (amount_of_snow == 0)
+        if (amount_of_snow <= 0)
         {
             boxCollider2D.enabled = false;
             sprite.enabled = false;
@@ -65,4 +65,5 @@ public class snowPileScript : MonoBehaviour
 
         }
     }
+  
 }
