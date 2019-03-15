@@ -8,6 +8,8 @@ public class bulletbehavior : MonoBehaviour
     public GameObject particlePrefab;
     public GameObject[] trailPrefab;
     private int index = 0;
+    public AudioSource particle_sound;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -69,9 +71,11 @@ public class bulletbehavior : MonoBehaviour
         }
         if (collision.collider.CompareTag("monster"))
         {
-            Instantiate(particlePrefab,transform.position,Quaternion.identity);
+            GameObject a = Instantiate(particlePrefab,transform.position,Quaternion.identity);
             Debug.Log("destroy");
+            particle_sound.Play();
             Destroy(this.gameObject);
+            Destroy(a,2f);
         }
 
     }

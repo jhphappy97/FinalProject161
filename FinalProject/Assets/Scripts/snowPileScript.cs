@@ -11,6 +11,7 @@ public class snowPileScript : MonoBehaviour
     private int amount_of_snow;
     private BoxCollider2D boxCollider2D;
     private SpriteRenderer sprite;
+    public AudioListener gather;
 
     // Start is called before the first frame update
     void Start()

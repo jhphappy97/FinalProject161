@@ -18,6 +18,7 @@ public class minion : MonoBehaviour
     private bool head = false;
     private bool choose = true;
     private float jumpTime = 0f;
+    public bool isfly_enemy;
     [SerializeField] private float jumpForce = 20f;
 
     public float timeBetweenHitLimit = 0.05f;
@@ -34,10 +35,18 @@ public class minion : MonoBehaviour
     {
         move();
     }
-
+    
     void move()
     {
         enemy.velocity = new Vector2(speed, enemy.velocity.y);
+        if(isfly_enemy){
+          if(transform.position.x> -3){
+           enemy.velocity = new Vector2(speed*=-1, enemy.velocity.y);
+          }
+          if(transform.position.x< -10){
+           enemy.velocity = new Vector2(speed*=-1, enemy.velocity.y);
+          }
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

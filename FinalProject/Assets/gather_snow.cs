@@ -11,13 +11,14 @@ public class gather_snow : MonoBehaviour
     private bool can_gather;
     public bool hitsnowile = false;
     private  int snowFromThisPile;
-
+    public AudioSource gather_sound;
     private snowPileScript snowPile;
     // Start is called before the first frame update
     void Start()
     {
         current_snow = 0;
         snowFromThisPile = 0;
+        gather_sound = GameObject.Find("gatherSound").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -28,6 +29,7 @@ public class gather_snow : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 incSnow();
+                gather_sound.Play();
                 --snowFromThisPile;
                 Debug.Log("current snow: " + current_snow);
                 if(current_snow > 0)
@@ -46,6 +48,7 @@ public class gather_snow : MonoBehaviour
             UI_hint.SetActive(true);
             can_gather = true;
             hitsnowile = true;
+            
         }
     }
 

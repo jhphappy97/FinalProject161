@@ -24,6 +24,7 @@ public class gather_UI : MonoBehaviour
         targetpos = Camera.main.ScreenToWorldPoint(barposition1.transform.position);
         if (player.shootstatus)
         {
+        
             a = Instantiate(trailRender, player.transform.position, Quaternion.identity);
             Invoke("particle", 0.5f);
         }
