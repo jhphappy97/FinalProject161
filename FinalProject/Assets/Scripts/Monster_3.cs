@@ -146,7 +146,7 @@ public class Monster_3 : MonoBehaviour
             healthBar.decHealth(--health);
             if (health == 0)
             {
-                SceneManager.LoadScene("Gameoverscene");
+                SceneManager.LoadScene("WinScene");
             }
             if (collision.collider.transform.position.y > -2f)
                 head = true;

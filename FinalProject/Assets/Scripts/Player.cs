@@ -228,7 +228,7 @@ public class Player : MonoBehaviour
             pos.x -= (pos.x * 0.25f/1.5f);
             life.rectTransform.position = pos;
             if (healthbar == 0)
-                wonGame();
+                gameover();
             notHit = false;
 
         }
@@ -237,12 +237,6 @@ public class Player : MonoBehaviour
         //    m_rigidbody.mass = 0;
         //}
     }
-
-    private void wonGame()
-    {
-        SceneManager.LoadScene("WinScene");
-    }
-
     private void OnCollisionExit2D(Collision2D collision)
     {
         if(collision.collider.CompareTag("ground"))
