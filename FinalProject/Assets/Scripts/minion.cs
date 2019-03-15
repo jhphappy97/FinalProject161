@@ -24,6 +24,8 @@ public class minion : MonoBehaviour
     public float timeBetweenHitLimit = 0.05f;
     public float knockback_speed = 5f;
     public GameObject potion;
+    public GameObject time_plus;
+    public GameObject clockposition;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +59,12 @@ public class minion : MonoBehaviour
         {
             player.GetComponent<Player>().incTimer();
             Destroy(this.gameObject);
+            
             Instantiate(potion, transform.position, transform.rotation);
+            //GameObject a = Instantiate(time_plus, transform.position, transform.rotation);
+            //Vector3 targetpos = Camera.main.ScreenToWorldPoint(clockposition.transform.position);
+            
+            //a.transform.position = Vector3.MoveTowards(a.transform.position, targetpos, 50f * Time.deltaTime);
         }
     }
 

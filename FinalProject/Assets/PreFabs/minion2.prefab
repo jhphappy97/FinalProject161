@@ -135,7 +135,11 @@ MonoBehaviour:
   enemy: {fileID: 668486597932917775}
   speed: 2
   timeBetweenFireLimit: 3
+  isfly_enemy: 0
   jumpForce: 20
   timeBetweenHitLimit: 0.05
   knockback_speed: 5
   potion: {fileID: 1287545748983138557, guid: 99e2b80a94f977843b5da6a3bd5f3275, type: 3}
+  time_plus: {fileID: 5752942502082830320, guid: f62b46afab8ca4d8eb0594e0911423ca,
+    type: 3}
+  clockposition: {fileID: 0}
