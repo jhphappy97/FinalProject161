@@ -20,7 +20,7 @@ public class Monster_3 : MonoBehaviour
     private float jumpTime = 0f;
     [SerializeField] private float jumpForce = 20f;
     public EnemyHealthBar healthBar;
-    private int health = 30;
+    private int health = 15;
     public float timeBetweenHitLimit = 0.05f;
     public float knockback_speed = 5f;
     public GameObject fireBalls;

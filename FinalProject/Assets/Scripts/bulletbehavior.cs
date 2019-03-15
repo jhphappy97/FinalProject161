@@ -60,6 +60,7 @@ public class bulletbehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         print("collision");
         if (collision.collider.CompareTag("ground"))
         {

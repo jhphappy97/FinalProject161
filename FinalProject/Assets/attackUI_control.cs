@@ -34,7 +34,7 @@ public class attackUI_control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {  
-        Debug.Log(playerScript.angle_var);
+//        Debug.Log(playerScript.angle_var);
         if(playerScript.angle_var == 1){
             bar1.transform.localScale = new Vector3(1.183288f, 0f,1.183288f);
             bar2.transform.localScale = new Vector3(1.183288f, 0f,1.183288f);

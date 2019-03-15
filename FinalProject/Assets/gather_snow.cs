@@ -10,12 +10,14 @@ public class gather_snow : MonoBehaviour
     public int current_snow;
     private bool can_gather;
     public bool hitsnowile = false;
+    private  int snowFromThisPile;
 
     private snowPileScript snowPile;
     // Start is called before the first frame update
     void Start()
     {
         current_snow = 0;
+        snowFromThisPile = 0;
     }
 
     // Update is called once per frame
@@ -26,21 +28,34 @@ public class gather_snow : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 incSnow();
-                
+                --snowFromThisPile;
                 Debug.Log("current snow: " + current_snow);
                 if(current_snow > 0)
                     Total_snow_can_store[current_snow - 1].SetActive(true);
+                if (snowFromThisPile < 0)
+                    done();
             }
         }
     }
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Snowpile"))
+        {
+            snowPile = collider.GetComponent<snowPileScript>();
+            snowFromThisPile = snowPile.getSnowAmount();
+            UI_hint.SetActive(true);
+            can_gather = true;
+            hitsnowile = true;
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collider)
     {
         if(collider.CompareTag("Snowpile"))
         {
+            Debug.Log("amount of Snow: " + snowFromThisPile);
             snowPile = collider.GetComponent<snowPileScript>();
-            UI_hint.SetActive(true);
-            can_gather=true;
-            hitsnowile = true;
+            snowPile.setSnowAmount(snowFromThisPile);
         }
     }
      private void OnTriggerExit2D(Collider2D collider)
@@ -51,7 +66,7 @@ public class gather_snow : MonoBehaviour
             can_gather = false;
             hitsnowile = false;
             collider.GetComponent<snowPileScript>().makeGone();
-            
+            snowPile.setSnowAmount(snowFromThisPile);
         }
     }
 
@@ -69,5 +84,13 @@ public class gather_snow : MonoBehaviour
         {
             snowPile.decSnow();
         }
+    }
+    public void done()
+    {
+        Debug.Log("makeGone");
+        snowPile.setSnowAmount(snowFromThisPile);
+        snowPile.makeGone();
+        UI_hint.SetActive(false);
+        can_gather = false;
     }
 }

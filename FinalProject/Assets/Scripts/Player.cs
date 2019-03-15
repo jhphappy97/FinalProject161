@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
     void shoot()
     {
         if (snowUI.current_snow < 0 && Input.GetKey(KeyCode.Space)) dialog.gameObject.SetActive(true);//this is to tell user they need more snow
-        if (snowUI.current_snow > 0 && snowUI.hitsnowile == false)
+        if (snowUI.current_snow > 0)// && snowUI.hitsnowile == false)
         {
             dialog.gameObject.SetActive(false);//turn off hint about snow
             if (Input.GetKey(KeyCode.Space)) angle_var = angle_var + Time.deltaTime;
@@ -228,7 +228,7 @@ public class Player : MonoBehaviour
             pos.x -= (pos.x * 0.25f/1.5f);
             life.rectTransform.position = pos;
             if (healthbar == 0)
-                gameover();
+                wonGame();
             notHit = false;
 
         }
@@ -237,6 +237,12 @@ public class Player : MonoBehaviour
         //    m_rigidbody.mass = 0;
         //}
     }
+
+    private void wonGame()
+    {
+        SceneManager.LoadScene("WinScene");
+    }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if(collision.collider.CompareTag("ground"))

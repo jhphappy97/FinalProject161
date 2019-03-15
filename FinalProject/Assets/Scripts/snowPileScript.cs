@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,12 +52,12 @@ public class snowPileScript : MonoBehaviour
 
     public void makeGone()
     {
-        if (amount_of_snow <= 0)
+        if (amount_of_snow == 0)
         {
             boxCollider2D.enabled = false;
             sprite.enabled = false;
             reset = true;
-            wait_time = Random.Range(10, 20);
+            wait_time = UnityEngine.Random.Range(10, 20);
             //Debug.Log("At the end");
             //if (reset)
             //{
@@ -65,5 +66,17 @@ public class snowPileScript : MonoBehaviour
 
         }
     }
-  
+
+    public void setSnowAmount(int snowFromThisPile)
+    {
+        amount_of_snow = snowFromThisPile;
+        if (amount_of_snow < 0)
+            amount_of_snow = 0;
+    }
+
+    public int getSnowAmount()
+    {
+        return amount_of_snow;
+    }
+
 }
