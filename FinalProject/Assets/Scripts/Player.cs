@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
     {
         if (!notHit)
         {
-            Debug.Log("unblink");
+           // Debug.Log("unblink");
             unBlink();
         }
         if (!notHit && (hitTimer -= Time.deltaTime) < 0)
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         }
         else if (hitTimer < 2.99999999f)
         {
-            Debug.Log("blink");
+            //Debug.Log("blink");
             blink();
         }
     }
@@ -190,10 +190,7 @@ public class Player : MonoBehaviour
     {
         if(collision.CompareTag("potion"))
         {
-            life.rectTransform.sizeDelta = new Vector2(HealthBarSize.x * (0.25f * ++healthbar), HealthBarSize.y);
-            Vector3 pos = life.rectTransform.position;
-            pos.x += (pos.x * 0.25f / 1.5f);
-            life.rectTransform.position = pos;
+            setHealthBar(++healthbar, true);
             //todo heal sound
             GameObject p = Instantiate(healparticles[0], this.transform.position, Quaternion.identity);
             GameObject p2 = Instantiate(healparticles[1], this.transform.position, Quaternion.identity);
@@ -223,10 +220,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Lose Life!!!!");
             hurt.Play();
-            life.rectTransform.sizeDelta = new Vector2(HealthBarSize.x * (0.25f * --healthbar), HealthBarSize.y);
-            Vector3 pos = life.rectTransform.position;
-            pos.x -= (pos.x * 0.25f/1.5f);
-            life.rectTransform.position = pos;
+            setHealthBar(--healthbar, false);
             if (healthbar == 0)
                 gameover();
             notHit = false;
@@ -275,6 +269,22 @@ public class Player : MonoBehaviour
     {
         timer += 5;
         setTime();
+    }
+
+    public void setHealthBar(int healthbar, bool inc)
+    {
+        if (healthbar > 4)
+        {
+            healthbar = 4;
+            return;
+        }
+        life.rectTransform.sizeDelta = new Vector2(HealthBarSize.x * (0.25f * healthbar), HealthBarSize.y);
+        Vector3 pos = life.rectTransform.position;
+        if(inc)
+            pos.x += (pos.x * 0.25f/1.75f);
+        else
+            pos.x -= (pos.x * 0.25f/1.75f);
+        life.rectTransform.position = pos;
     }
 
 

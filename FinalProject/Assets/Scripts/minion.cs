@@ -42,10 +42,10 @@ public class minion : MonoBehaviour
     {
         enemy.velocity = new Vector2(speed, enemy.velocity.y);
         if(isfly_enemy){
-          if(transform.position.x> -3){
+          if(transform.position.x> 20){
            enemy.velocity = new Vector2(speed*=-1, enemy.velocity.y);
           }
-          if(transform.position.x< -10){
+          if(transform.position.x< -15){
            enemy.velocity = new Vector2(speed*=-1, enemy.velocity.y);
           }
         }

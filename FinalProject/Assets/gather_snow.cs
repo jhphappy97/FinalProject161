@@ -31,7 +31,7 @@ public class gather_snow : MonoBehaviour
                 incSnow();
                 gather_sound.Play();
                 --snowFromThisPile;
-                Debug.Log("current snow: " + current_snow);
+                //Debug.Log("current snow: " + current_snow);
                 if(current_snow > 0)
                     Total_snow_can_store[current_snow - 1].SetActive(true);
                 if (snowFromThisPile < 0)
@@ -56,7 +56,7 @@ public class gather_snow : MonoBehaviour
     {
         if(collider.CompareTag("Snowpile"))
         {
-            Debug.Log("amount of Snow: " + snowFromThisPile);
+           // Debug.Log("amount of Snow: " + snowFromThisPile);
             snowPile = collider.GetComponent<snowPileScript>();
             snowPile.setSnowAmount(snowFromThisPile);
         }
@@ -90,7 +90,7 @@ public class gather_snow : MonoBehaviour
     }
     public void done()
     {
-        Debug.Log("makeGone");
+        //Debug.Log("makeGone");
         snowPile.setSnowAmount(snowFromThisPile);
         snowPile.makeGone();
         UI_hint.SetActive(false);
