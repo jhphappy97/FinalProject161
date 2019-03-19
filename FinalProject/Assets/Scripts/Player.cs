@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     [SerializeField] protected float bulletspeed = 0.1f;
     [SerializeField] protected float playerforce = 500f;
     [SerializeField] public float angle_var = 1;
+    [HideInInspector] public bool addtime;
+    [HideInInspector] public GameObject t;
     private int healthbar;
     private Vector2 HealthBarSize;
     private bool notHit= true;
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
     public AudioSource hurt;
     public Text timerText;
     private int timer;
+    
     private float second = 1f;
     
     public GameObject []healparticles;
@@ -198,6 +201,17 @@ public class Player : MonoBehaviour
             Destroy(p,1f);
             Destroy(p2,1f);
         }
+        if(collision.CompareTag("time"))
+        {   
+            t = collision.gameObject;
+            addtime=true;
+            Invoke("setfalse",0.2f);
+            Destroy(collision.gameObject,0.5f);
+        }
+    }
+    void setfalse(){
+     addtime=false;
+    
     }
     private void OnCollisionStay2D(Collision2D collision)
     {

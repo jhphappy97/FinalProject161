@@ -24,6 +24,7 @@ public class Monster_3 : MonoBehaviour
     public float timeBetweenHitLimit = 0.05f;
     public float knockback_speed = 5f;
     public GameObject fireBalls;
+    public AudioSource particle_sound;
 
     // Start is called before the first frame update
     void Start()
@@ -142,7 +143,8 @@ public class Monster_3 : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("bullet"))
-        {
+        {   
+            particle_sound.Play();
             healthBar.decHealth(--health);
             if (health == 0)
             {

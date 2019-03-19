@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6880071476155030133}
   - component: {fileID: 4729142772195449694}
   - component: {fileID: 6385819768787486306}
+  - component: {fileID: 937281787}
   m_Layer: 0
   m_Name: PixelArt 1
-  m_TagString: potion
+  m_TagString: time
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,3 +107,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.90631485, y: 0.9082608}
   m_EdgeRadius: 0
+--- !u!114 &937281787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752942502082830320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd27edac03d145b2a8c91f7cb950453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailRender: {fileID: 5752942502082830320}
+  time: {fileID: 0}
+  particleprefab: {fileID: 0}
+  barposition1: {fileID: 0}
+  targetpos: {x: 0, y: 0, z: 0}
+  player: {fileID: 0}
+  timer: 1

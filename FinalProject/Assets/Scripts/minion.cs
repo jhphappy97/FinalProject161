@@ -26,16 +26,22 @@ public class minion : MonoBehaviour
     public GameObject potion;
     public GameObject time_plus;
     public GameObject clockposition;
+    public AudioSource particle_sound;
+    
     // Start is called before the first frame update
     void Start()
     {
         anim = this.GetComponent<Animator>();
+        particle_sound = GameObject.Find("snowsound").GetComponent<AudioSource>();
+        time_plus = GameObject.Find("add_time");
+        clockposition=GameObject.Find("clock");
     }
 
     // Update is called once per frame
     void Update()
     {
         move();
+        
     }
     
     void move()
@@ -59,12 +65,11 @@ public class minion : MonoBehaviour
         {
             player.GetComponent<Player>().incTimer();
             Destroy(this.gameObject);
+            particle_sound.Play();
+            GameObject b= Instantiate(potion, transform.position, transform.rotation);
+            GameObject a = Instantiate(time_plus, transform.position, transform.rotation);
+            Destroy(b,2f);
             
-            Instantiate(potion, transform.position, transform.rotation);
-            //GameObject a = Instantiate(time_plus, transform.position, transform.rotation);
-            //Vector3 targetpos = Camera.main.ScreenToWorldPoint(clockposition.transform.position);
-            
-            //a.transform.position = Vector3.MoveTowards(a.transform.position, targetpos, 50f * Time.deltaTime);
         }
     }
 
@@ -85,4 +90,6 @@ public class minion : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
     }
+    
+
 }
